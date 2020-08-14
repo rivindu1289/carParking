@@ -33,23 +33,25 @@ export default class Map extends React.Component {
     }
 
     renderParking(item) {
-        const hours = this.state.hours;
+        const { hours } = this.state;
         return (
             <View key={`parking-${item.id}`} style={styles.parking}>
                 <View style={{ flex: 1, flexDirection: 'column' }}>
-                    <Text>x {item.spots} {item.title}</Text>
+                    <Text style={{ fontSize: 16 }}>x {item.spots} {item.title}</Text>
                 </View>
-                <View style={{ flex: 1 }}>
-                    <Text>${item.price}</Text>
-                    <Text>{item.rating}</Text>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <Text>${item.price}</Text>
+                        <Text>{item.rating}</Text>
+                    </View>
                     <TouchableWithoutFeedback>
                         <View style={styles.buy}>
-                            <View>
-                                <Text>${item.price * 2}</Text>
-                                <Text>{item.price}x{hours[item.id]} hrs</Text>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 25, color: 'white' }}>${item.price * 2}</Text>
+                                <Text style={{ color: 'white' }}>{item.price}x{hours[item.id]} hrs</Text>
                             </View>
-                            <View>
-                                <Text></Text>
+                            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 25, color: 'white' }}>></Text>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -100,14 +102,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 6,
-        padding: 24,
+        padding: 20,
         marginHorizontal: 24,
         width: w - 48
     },
     buy: {
         flex: 1,
-        backgroundColor : 'red'
-      },
+        flexDirection: 'row',
+        padding: 8,
+        borderRadius: 6,
+        backgroundColor: 'red'
+    },
 });
 
 const parkingsSpots = [
