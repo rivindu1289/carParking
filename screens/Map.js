@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from '
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
+const { Marker } = MapView;
+
 
 export default class Map extends React.Component {
     state = {
@@ -19,7 +21,13 @@ export default class Map extends React.Component {
                         longitude: -122.4324,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
-                    }}>
+                    }}
+                >
+                    {parkingsSpots.map(parking =>
+                        <Marker
+                            key={`marker-${parking.id}`}
+                            coordinate={parking.coordinate} />
+                    )}
                 </MapView>
                 {this.renderParkings()}
             </View>
@@ -69,22 +77,28 @@ export default class Map extends React.Component {
         )
     }
 
-    renderParkings(){
-        return(
-          <FlatList
-            horizontal
-            pagingEnabled
-            scrollEnabled
-            showsHorizontalScrollIndicator={false}
-            scrollEventThrottle={16}
-            snapToAlignment="center"
-            style={styles.parkings}
-            data={parkingsSpots}
-            keyExtractor={(item, index) => `${item.id}`}
-            renderItem={({ item }) => this.renderParking(item)}
-          />
+    renderParkings() {
+        return (
+            <FlatList
+                horizontal
+                pagingEnabled
+                scrollEnabled
+                showsHorizontalScrollIndicator={false}
+                scrollEventThrottle={16}
+                snapToAlignment="center"
+                style={styles.parkings}
+                data={parkingsSpots}
+                keyExtractor={(item, index) => `${item.id}`}
+                renderItem={({ item }) => this.renderParking(item)}
+            />
         )
-  }
+    }
+
+    componentWillMount() {
+        const hours = {};
+        parkingsSpots.map(parking => { hours[parking.id] = 1 });
+        this.setState({ hours });
+    }
 }
 
 const w = Dimensions.get('screen').width;
@@ -134,7 +148,11 @@ const parkingsSpots = [
         price: 5,
         rating: 4.2,
         spots: 20,
-        free: 10
+        free: 10,
+        coordinate: {
+            latitude: 37.78735,
+            longitude: -122.4334,
+        }
     },
     {
         id: 2,
@@ -142,7 +160,11 @@ const parkingsSpots = [
         price: 7,
         rating: 3.8,
         spots: 25,
-        free: 20
+        free: 20,
+        coordinate: {
+            latitude: 37.78845,
+            longitude: -122.4344,
+        }
     },
     {
         id: 3,
@@ -150,7 +172,11 @@ const parkingsSpots = [
         price: 10,
         rating: 4.9,
         spots: 50,
-        free: 25
+        free: 25,
+        coordinate: {
+            latitude: 37.78615,
+            longitude: -122.4314,
+        }
     },
 ];
 
