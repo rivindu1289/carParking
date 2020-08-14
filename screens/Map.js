@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import MapView from 'react-native-maps';
 
 export default class Map extends React.Component {
+    state = {
+        hours: {},
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -29,21 +33,39 @@ export default class Map extends React.Component {
     }
 
     renderParking(item) {
+        const hours = this.state.hours;
         return (
             <View key={`parking-${item.id}`} style={styles.parking}>
-                <Text>{item.title}</Text>
+                <View style={{ flex: 1, flexDirection: 'column' }}>
+                    <Text>x {item.spots} {item.title}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                    <Text>${item.price}</Text>
+                    <Text>{item.rating}</Text>
+                    <TouchableWithoutFeedback>
+                        <View style={styles.buy}>
+                            <View>
+                                <Text>${item.price * 2}</Text>
+                                <Text>{item.price}x{hours[item.id]} hrs</Text>
+                            </View>
+                            <View>
+                                <Text></Text>
+                            </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         )
     }
 
     renderParkings() {
         return (
-            <ScrollView horizontal 
-            style={styles.parkings}
-            pagingEnabled
-            showsHorizontalScrollIndicator = {false}
-            scrollEventThrottle={16}
-            snapToAlignment="center"
+            <ScrollView horizontal
+                style={styles.parkings}
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                scrollEventThrottle={16}
+                snapToAlignment="center"
             >
                 {parkingsSpots.map(parking => this.renderParking(parking))}
             </ScrollView>
@@ -75,12 +97,17 @@ const styles = StyleSheet.create({
         bottom: 24
     },
     parking: {
+        flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 6,
         padding: 24,
         marginHorizontal: 24,
-        width : w - 48
-    }
+        width: w - 48
+    },
+    buy: {
+        flex: 1,
+        backgroundColor : 'red'
+      },
 });
 
 const parkingsSpots = [
