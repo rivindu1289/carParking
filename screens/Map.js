@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 
 export default class Map extends React.Component {
@@ -38,13 +38,20 @@ export default class Map extends React.Component {
 
     renderParkings() {
         return (
-            <ScrollView horizontal contentContainerStyle={styles.parkings}>
+            <ScrollView horizontal 
+            style={styles.parkings}
+            pagingEnabled
+            showsHorizontalScrollIndicator = {false}
+            scrollEventThrottle={16}
+            snapToAlignment="center"
+            >
                 {parkingsSpots.map(parking => this.renderParking(parking))}
             </ScrollView>
         )
     }
 }
 
+const w = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -62,43 +69,46 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     parkings: {
-        flex: 1,
-        //position: 'absolute',
-        right: 0,
+        position: 'absolute',
         left: 0,
-        bottom: 0,
+        right: 0,
+        bottom: 24
     },
     parking: {
         backgroundColor: 'white',
         borderRadius: 6,
-        padding: 12,
-        marginHorizontal: 24
+        padding: 24,
+        marginHorizontal: 24,
+        width : w - 48
     }
 });
 
 const parkingsSpots = [
     {
-      id: 1,
-      title: 'Parking 1',
-      price: 5,
-      rating: 4.2,
-      spots: 20,
-      free: 10
+        id: 1,
+        title: 'Parking 1',
+        price: 5,
+        rating: 4.2,
+        spots: 20,
+        free: 10
     },
     {
-      id: 2,
-      title: 'Parking 2',
-      price: 7,
-      rating: 3.8,
-      spots: 25,
-      free: 20
+        id: 2,
+        title: 'Parking 2',
+        price: 7,
+        rating: 3.8,
+        spots: 25,
+        free: 20
     },
     {
-      id: 3,
-      title: 'Parking 3',
-      price: 10,
-      rating: 4.9,
-      spots: 50,
-      free: 25
+        id: 3,
+        title: 'Parking 3',
+        price: 10,
+        rating: 4.9,
+        spots: 50,
+        free: 25
     },
-  ];
+];
+
+
+
