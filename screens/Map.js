@@ -25,7 +25,15 @@ export default class Map extends React.Component {
                     {parkingsSpots.map(parking =>
                         <Marker
                             key={`marker-${parking.id}`}
-                            coordinate={parking.coordinate} />
+                            coordinate={parking.coordinate}>
+                            <View style={[
+                                styles.marker,
+                                styles.shadow,
+                            ]}>
+                                <Text style={styles.markerPrice}>${parking.price}</Text>
+                                <Text style={styles.markerStatus}> ({parking.free}/{parking.spots})</Text>
+                            </View>
+                        </Marker>
                     )}
                 </MapView>
                 {this.renderParkings()}
@@ -137,6 +145,33 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 6,
         backgroundColor: '#D83C54'
+    },
+    marker: {
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 24,
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderWidth: 1,
+        borderColor: '#FFFFFF',
+    },
+    markerPrice: {
+        color: '#D83C54',
+        fontWeight: 'bold',
+    },
+    markerStatus: {
+        color: '#7D818A'
+    },
+    shadow: {
+        shadowColor: "#3D4448",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        backgroundColor: 'white',
+        elevation: 5
     },
 });
 
