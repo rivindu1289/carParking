@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
@@ -70,16 +70,25 @@ export default class Map extends React.Component {
 
     renderParkings() {
         return (
-            <ScrollView horizontal
-                style={styles.parkings}
+            <FlatList
+                horizontal
                 pagingEnabled
+                scrollEnabled
                 showsHorizontalScrollIndicator={false}
                 scrollEventThrottle={16}
                 snapToAlignment="center"
-            >
-                {parkingsSpots.map(parking => this.renderParking(parking))}
-            </ScrollView>
+                style={styles.parkings}
+                data={parkingsSpots}
+                keyExtractor={(item, index) => `${item.id}`}
+                renderItem={({ item }) => this.renderParking(item)}
+            />
         )
+    }
+
+    componentWillMount() {
+        const hours = {};
+        parkingsSpots.map(parking => { hours[parking.id] = 1 });
+        this.setState({ hours });
     }
 }
 
