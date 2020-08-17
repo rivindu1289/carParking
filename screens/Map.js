@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from '
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
+const { Marker } = MapView;
+
 export default class Map extends React.Component {
     state = {
         hours: {},
@@ -18,7 +20,13 @@ export default class Map extends React.Component {
                         longitude: -122.4324,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
-                    }}>
+                    }}
+                >
+                    {parkingsSpots.map(parking =>
+                        <Marker
+                            key={`marker-${parking.id}`}
+                            coordinate={parking.coordinate} />
+                    )}
                 </MapView>
                 {this.renderParkings()}
             </View>
