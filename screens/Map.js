@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 
 export default class Map extends React.Component {
@@ -38,23 +38,24 @@ export default class Map extends React.Component {
             <View key={`parking-${item.id}`} style={styles.parking}>
                 <View style={{ flex: 1, flexDirection: 'column' }}>
                     <Text style={{ fontSize: 16 }}>x {item.spots} {item.title}</Text>
+                    <View style={{ width: 100, borderRadius: 6, borderColor: 'grey', borderWidth: 0.7, padding: 4 }}>
+                        <Text style={{ fontSize: 16 }}>05:00 hrs</Text>
+                    </View>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={{ flex: 1, justifyContent: 'center' }}>
                         <Text>${item.price}</Text>
                         <Text>{item.rating}</Text>
                     </View>
-                    <TouchableWithoutFeedback>
-                        <View style={styles.buy}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 25, color: 'white' }}>${item.price * 2}</Text>
-                                <Text style={{ color: 'white' }}>{item.price}x{hours[item.id]} hrs</Text>
-                            </View>
-                            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 25, color: 'white' }}>></Text>
-                            </View>
+                    <TouchableOpacity style={styles.buy}>
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 25, color: 'white' }}>${item.price * 2}</Text>
+                            <Text style={{ color: 'white' }}>{item.price}x{hours[item.id]} hrs</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                        <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 25, color: 'white' }}>></Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
