@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 export default class Map extends React.Component {
     state = {
@@ -42,10 +43,16 @@ export default class Map extends React.Component {
                         <Text style={{ fontSize: 16 }}>05:00 hrs</Text>
                     </View>
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <Text>${item.price}</Text>
-                        <Text>{item.rating}</Text>
+                <View style={{ flex: 1.5, flexDirection: 'row' }}>
+                    <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: 24 }}>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Ionicons name='ios-pricetag' size={16} color="#70818A" />
+                            <Text>${item.price}</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Ionicons name='ios-star' size={16} color="#70818A" />
+                            <Text>{item.rating}</Text>
+                        </View>
                     </View>
                     <TouchableOpacity style={styles.buy}>
                         <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -103,16 +110,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 6,
-        padding: 20,
+        padding: 15,
         marginHorizontal: 24,
         width: w - 48
     },
     buy: {
-        flex: 1,
+        flex: 1.25,
         flexDirection: 'row',
         padding: 8,
         borderRadius: 6,
-        backgroundColor: 'red'
+        backgroundColor: '#D83C54'
     },
 });
 
