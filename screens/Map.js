@@ -57,7 +57,10 @@ export default class Map extends React.Component {
     renderHeader() {
         return (
             <View style={styles.header}>
-                <Text>Header</Text>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={styles.headerTitle}>Detected location</Text>
+                    <Text style={styles.headerLocation}>San Francisco, US</Text>
+                </View>
             </View>
         )
     }
@@ -135,8 +138,19 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     header: {
-        flex: .5,
+        flexDirection: 'row',
         justifyContent: 'center',
+        paddingHorizontal: theme.SIZES.base * 2,
+        paddingTop: theme.SIZES.base * 2.5,
+        paddingBottom: theme.SIZES.base * 1.5,
+    },
+    headerTitle: {
+        color: theme.COLORS.gray,
+    },
+    headerLocation: {
+        fontSize: theme.SIZES.font,
+        fontWeight: '500',
+        paddingVertical: theme.SIZES.base / 3,
     },
     parkings: {
         position: 'absolute',
