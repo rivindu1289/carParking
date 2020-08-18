@@ -172,6 +172,9 @@ export default class Map extends React.Component {
                     </View>
                     <View style={styles.modalHours}>
                         <Text style={{ textAlign: 'center', fontWeight: '500' }}>Choose your Booking Period:</Text>
+                        <View style={styles.modalHoursDropdown}>
+                            <Text style={{ color: theme.COLORS.gray }}>5:00 hrs</Text>
+                        </View>
                     </View>
                     <View>
                         <TouchableOpacity style={styles.payBtn}>
@@ -338,9 +341,6 @@ const styles = StyleSheet.create({
         borderTopColor: theme.COLORS.overlay,
         borderBottomColor: theme.COLORS.overlay,
     },
-    modalHours: {
-        paddingVertical: height * 0.11,
-    },
     payBtn: {
         borderRadius: 6,
         flexDirection: 'row',
@@ -353,7 +353,16 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: theme.SIZES.base * 1.5,
         color: theme.COLORS.white,
-    }
+    },
+    modalHours: {
+        paddingVertical: height * 0.10,
+    },
+    modalHoursDropdown: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: theme.SIZES.base,
+    },
 });
 
 const parkingsSpots = [
