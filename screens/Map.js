@@ -134,8 +134,12 @@ export default class Map extends React.Component {
         return (
             <Modal
                 isVisible
+                useNativeDriver
+                style={styles.modalContainer}
                 onBackButtonPress={() => this.setState({ activeModal: null })}
                 onBackdropPress={() => this.setState({ activeModal: null })}
+                onSwipeComplete={() => this.setState({ activeModal: null })}
+
             >
                 <View style={styles.modal}>
                     <Text>{activeModal.title}</Text>
@@ -151,7 +155,7 @@ export default class Map extends React.Component {
     }
 }
 
-const w = Dimensions.get('screen').width;
+const {width , height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         padding: 15,
         marginHorizontal: theme.SIZES.base * 2,
-        width: w - (theme.SIZES.base * 4)
+        width: width - (theme.SIZES.base * 4)
     },
     buy: {
         flex: 1.25,
@@ -274,9 +278,14 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: theme.COLORS.white
     },
+    modalContainer: {
+        margin: 0,
+        justifyContent: 'flex-end',
+    },
     modal: {
-        backgroundColor: theme.COLORS.white
-    }
+        height: height * 0.75,
+        backgroundColor: theme.COLORS.white,
+    },
 });
 
 const parkingsSpots = [
