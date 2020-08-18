@@ -67,29 +67,29 @@ export default class Map extends React.Component {
         return (
             <TouchableWithoutFeedback key={`parking-${item.id}`} onPress={() => this.setState({ active: item.id })} >
                 <View style={[styles.parking, styles.shadow]}>
-                    <View style={{ flex: 1, flexDirection: 'column' }}>
+                    <View style={styles.hours}>
                         <Text style={theme.SIZES.font}>x {item.spots} {item.title}</Text>
                         <View style={{ width: 100, borderRadius: 6, borderColor: theme.COLORS.gray, borderWidth: 0.7, padding: 4 }}>
-                            <Text style={theme.SIZES.font}>05:00 hrs</Text>
+                            <Text style={styles.hoursTitle}>05:00 hrs</Text>
                         </View>
                     </View>
-                    <View style={{ flex: 1.5, flexDirection: 'row' }}>
-                        <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: theme.SIZES.base * 2 }}>
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={styles.parkingInfoContainer}>
+                        <View style={styles.parkingInfo}>
+                            <View style={styles.parkingIcon}>
                                 <Ionicons name='ios-pricetag' size={theme.SIZES.icon} color={theme.COLORS.gray} />
                                 <Text>${item.price}</Text>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View style={styles.parkingIcon}>
                                 <Ionicons name='ios-star' size={theme.SIZES.icon} color={theme.COLORS.gray} />
                                 <Text>{item.rating}</Text>
                             </View>
                         </View>
                         <TouchableOpacity style={styles.buy}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 25, color: theme.COLORS.white }}>${item.price * 2}</Text>
+                            <View style={styles.buyTotal}>
+                                <Text style={styles.buyTotalPrice}>${item.price * 2}</Text>
                                 <Text style={{ color: theme.COLORS.white }}>{item.price}x{hours[item.id]} hrs</Text>
                             </View>
-                            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={styles.buyButton}>
                                 <Text style={{ fontSize: 25, color: theme.COLORS.white }}>></Text>
                             </View>
                         </TouchableOpacity>
@@ -190,6 +190,42 @@ const styles = StyleSheet.create({
     active: {
         borderColor: theme.COLORS.red,
     },
+    hours: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    hoursTitle: {
+        fontSize: theme.SIZES.text,
+        fontWeight: '500',
+    },
+    parkingInfoContainer: {
+        flex: 1.5,
+        flexDirection: 'row'
+    },
+    parkingInfo: {
+        flex: 0.5,
+        justifyContent: 'center',
+        marginHorizontal: theme.SIZES.base * 2
+    },
+    parkingIcon: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    buyTotal: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    buyButton: {
+        flex: 0.5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buyTotalPrice: {
+        fontSize: 25,
+        color: theme.COLORS.white
+    }
 });
 
 const parkingsSpots = [
