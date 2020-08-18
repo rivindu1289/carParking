@@ -57,9 +57,14 @@ export default class Map extends React.Component {
     renderHeader() {
         return (
             <View style={styles.header}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={styles.headerLocationInfo}>
                     <Text style={styles.headerTitle}>Detected location</Text>
                     <Text style={styles.headerLocation}>San Francisco, US</Text>
+                </View>
+                <View style={styles.headerIcon}>
+                    <TouchableWithoutFeedback>
+                        <Ionicons name="ios-menu" size={theme.SIZES.icon * 1.5} />
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         )
@@ -151,6 +156,15 @@ const styles = StyleSheet.create({
         fontSize: theme.SIZES.font,
         fontWeight: '500',
         paddingVertical: theme.SIZES.base / 3,
+    },
+    headerIcon: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+    headerLocationInfo: {
+        flex: 1,
+        justifyContent: 'center'
     },
     parkings: {
         position: 'absolute',
