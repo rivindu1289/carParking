@@ -154,15 +154,19 @@ export default class Map extends React.Component {
                     </View>
                     <View style={styles.modalInfo}>
                         <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Ionicons name='ios-pricetag' size={theme.SIZES.icon * 1.1} color={theme.COLORS.gray} />
                             <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> ${activeModal.price}</Text>
                         </View>
                         <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Ionicons name='ios-star' size={theme.SIZES.icon * 1.1} color={theme.COLORS.gray} />
                             <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.rating}</Text>
                         </View>
                         <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Ionicons name='ios-pin' size={theme.SIZES.icon * 1.1} color={theme.COLORS.gray} />
                             <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.distance}km</Text>
                         </View>
                         <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Ionicons name='ios-car' size={theme.SIZES.icon * 1.3} color={theme.COLORS.gray} />
                             <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.free}/{activeModal.spots}</Text>
                         </View>
                     </View>
