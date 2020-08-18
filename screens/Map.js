@@ -68,19 +68,19 @@ export default class Map extends React.Component {
             <TouchableWithoutFeedback key={`parking-${item.id}`} onPress={() => this.setState({ active: item.id })} >
                 <View style={[styles.parking, styles.shadow]}>
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <Text style={{ fontSize: 16 }}>x {item.spots} {item.title}</Text>
+                        <Text style={theme.SIZES.font}>x {item.spots} {item.title}</Text>
                         <View style={{ width: 100, borderRadius: 6, borderColor: theme.COLORS.gray, borderWidth: 0.7, padding: 4 }}>
-                            <Text style={{ fontSize: 16 }}>05:00 hrs</Text>
+                            <Text style={theme.SIZES.font}>05:00 hrs</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1.5, flexDirection: 'row' }}>
-                        <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: 24 }}>
+                        <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: theme.SIZES.base * 2 }}>
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Ionicons name='ios-pricetag' size={16} color={theme.COLORS.gray} />
+                                <Ionicons name='ios-pricetag' size={theme.SIZES.icon} color={theme.COLORS.gray} />
                                 <Text>${item.price}</Text>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Ionicons name='ios-star' size={16} color={theme.COLORS.gray} />
+                                <Ionicons name='ios-star' size={theme.SIZES.icon} color={theme.COLORS.gray} />
                                 <Text>{item.rating}</Text>
                             </View>
                         </View>
@@ -142,16 +142,16 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         left: 0,
-        bottom: 24,
-        paddingBottom: 24
+        bottom: theme.SIZES.base * 2,
+        paddingBottom: theme.SIZES.base * 2
     },
     parking: {
         flexDirection: 'row',
         backgroundColor: theme.COLORS.white,
         borderRadius: 6,
         padding: 15,
-        marginHorizontal: 24,
-        width: w - 48
+        marginHorizontal: theme.SIZES.base * 2,
+        width: w - (theme.SIZES.base * 4)
     },
     buy: {
         flex: 1.25,
@@ -163,9 +163,9 @@ const styles = StyleSheet.create({
     marker: {
         flexDirection: 'row',
         backgroundColor: theme.COLORS.white,
-        borderRadius: 24,
+        borderRadius: theme.SIZES.base * 2,
         paddingVertical: 12,
-        paddingHorizontal: 24,
+        paddingHorizontal: theme.SIZES.base * 2,
         borderWidth: 1,
         borderColor: theme.COLORS.white,
     },
