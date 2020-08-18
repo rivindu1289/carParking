@@ -143,34 +143,43 @@ export default class Map extends React.Component {
             >
                 <View style={styles.modal}>
                     <View>
-                        <Text>{activeModal.title}</Text>
+                        <Text style={{ fontSize: theme.SIZES.font * 1.5 }}>
+                            {activeModal.title}
+                        </Text>
+                    </View>
+                    <View style={{ paddingVertical: theme.SIZES.base }}>
+                        <Text style={{ color: theme.COLORS.gray, fontSize: theme.SIZES.font * 1.1 }}>
+                            {activeModal.description}
+                        </Text>
+                    </View>
+                    <View style={styles.modalInfo}>
+                        <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> ${activeModal.price}</Text>
+                        </View>
+                        <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.rating}</Text>
+                        </View>
+                        <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.distance}km</Text>
+                        </View>
+                        <View style={[styles.parkingIcon, { justifyContent: 'flex-start' }]}>
+                            <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}> {activeModal.free}/{activeModal.spots}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.modalHours}>
+                        <Text style={{ textAlign: 'center', fontWeight: '500' }}>Choose your Booking Period:</Text>
                     </View>
                     <View>
-                        <Text>{activeModal.description}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text>{activeModal.price}</Text>
-                        <Text>{activeModal.rating}</Text>
-                        <Text>{activeModal.distance}</Text>
-                        <Text>{activeModal.free}/{activeModal.total}</Text>
-                    </View>
-                    <View>
-                        <Text>Choose your Booking Period</Text>
-                    </View>
-                    <View>
-                        <TouchableOpacity style={styles.buy}>
-                            <View style={styles.buyTotal}>
-                                <Text style={styles.buyTotalPrice}>${activeModal.price * 2}</Text>
-                                <Text style={{ color: theme.COLORS.white }}>{activeModal.price}x{hours[activeModal.id]} hrs</Text>
-                            </View>
-                            <View style={styles.buyButton}>
-                                <Text style={{ fontSize: 25, color: theme.COLORS.white }}>></Text>
-                            </View>
+                        <TouchableOpacity style={styles.payBtn}>
+                            <Text style={styles.payText}>
+                                Proceed to pay ${activeModal.price * hours[activeModal.id]}
+                            </Text>
+                            <FontAwesome name='angle-right' size={theme.SIZES.icon * 1.75} color={theme.COLORS.white} />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </View >
 
-            </Modal>
+            </Modal >
         )
     }
 
@@ -316,6 +325,31 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: theme.SIZES.base,
         borderTopRightRadius: theme.SIZES.base,
     },
+    modalInfo: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        paddingVertical: theme.SIZES.base,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderTopColor: theme.COLORS.overlay,
+        borderBottomColor: theme.COLORS.overlay,
+    },
+    modalHours: {
+        paddingVertical: height * 0.11,
+    },
+    payBtn: {
+        borderRadius: 6,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: theme.SIZES.base * 1.5,
+        backgroundColor: theme.COLORS.red,
+    },
+    payText: {
+        fontWeight: '600',
+        fontSize: theme.SIZES.base * 1.5,
+        color: theme.COLORS.white,
+    }
 });
 
 const parkingsSpots = [
@@ -329,7 +363,11 @@ const parkingsSpots = [
         coordinate: {
             latitude: 37.78735,
             longitude: -122.4334,
-        }
+        },
+        distance: 2.5,
+        description: `Description about this parking lot
+  Open year 2018
+  Secure with CTV`,
     },
     {
         id: 2,
@@ -341,7 +379,11 @@ const parkingsSpots = [
         coordinate: {
             latitude: 37.78845,
             longitude: -122.4344,
-        }
+        },
+        distance: 3.5,
+        description: `Description about this parking lot
+  Open year 2018
+  Secure with CTV`,
     },
     {
         id: 3,
@@ -353,7 +395,11 @@ const parkingsSpots = [
         coordinate: {
             latitude: 37.78615,
             longitude: -122.4314,
-        }
+        },
+        distance: 1,
+        description: `Description about this parking lot
+  Open year 2018
+  Secure with CTV`,
     },
 ];
 
