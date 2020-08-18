@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text, View,
+    ScrollView,
+    Dimensions,
+    TouchableOpacity,
+    FlatList,
+    TouchableWithoutFeedback
+} from 'react-native';
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
@@ -8,6 +16,7 @@ const { Marker } = MapView;
 export default class Map extends React.Component {
     state = {
         hours: {},
+        active: null
     }
 
     render() {
@@ -23,17 +32,20 @@ export default class Map extends React.Component {
                     }}
                 >
                     {parkingsSpots.map(parking =>
-                        <Marker
-                            key={`marker-${parking.id}`}
-                            coordinate={parking.coordinate}>
+                        <Marker 
+                        key={`marker-${parking.id}`}
+                        coordinate={parking.coordinate}>
+                          <TouchableWithoutFeedback onPress={() => this.setState({ active: parking.id })} >
                             <View style={[
-                                styles.marker,
-                                styles.shadow,
+                              styles.marker,
+                              styles.shadow,
+                              this.state.active === parking.id ? styles.active : null
                             ]}>
-                                <Text style={styles.markerPrice}>${parking.price}</Text>
-                                <Text style={styles.markerStatus}> ({parking.free}/{parking.spots})</Text>
+                              <Text style={styles.markerPrice}>${parking.price}</Text>
+                              <Text style={styles.markerStatus}> ({parking.free}/{parking.spots})</Text>
                             </View>
-                        </Marker>
+                          </TouchableWithoutFeedback>
+                      </Marker>
                     )}
                 </MapView>
                 {this.renderParkings()}
@@ -52,35 +64,37 @@ export default class Map extends React.Component {
     renderParking(item) {
         const { hours } = this.state;
         return (
-            <View key={`parking-${item.id}`} style={styles.parking}>
-                <View style={{ flex: 1, flexDirection: 'column' }}>
-                    <Text style={{ fontSize: 16 }}>x {item.spots} {item.title}</Text>
-                    <View style={{ width: 100, borderRadius: 6, borderColor: 'grey', borderWidth: 0.7, padding: 4 }}>
-                        <Text style={{ fontSize: 16 }}>05:00 hrs</Text>
-                    </View>
-                </View>
-                <View style={{ flex: 1.5, flexDirection: 'row' }}>
-                    <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: 24 }}>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Ionicons name='ios-pricetag' size={16} color="#70818A" />
-                            <Text>${item.price}</Text>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Ionicons name='ios-star' size={16} color="#70818A" />
-                            <Text>{item.rating}</Text>
+            <TouchableWithoutFeedback key={`parking-${item.id}`} onPress={() => this.setState({ active: item.id })} >
+                <View style={[styles.parking, styles.shadow]}>
+                    <View style={{ flex: 1, flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 16 }}>x {item.spots} {item.title}</Text>
+                        <View style={{ width: 100, borderRadius: 6, borderColor: 'grey', borderWidth: 0.7, padding: 4 }}>
+                            <Text style={{ fontSize: 16 }}>05:00 hrs</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.buy}>
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 25, color: 'white' }}>${item.price * 2}</Text>
-                            <Text style={{ color: 'white' }}>{item.price}x{hours[item.id]} hrs</Text>
+                    <View style={{ flex: 1.5, flexDirection: 'row' }}>
+                        <View style={{ flex: 0.5, justifyContent: 'center', marginHorizontal: 24 }}>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Ionicons name='ios-pricetag' size={16} color="#70818A" />
+                                <Text>${item.price}</Text>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Ionicons name='ios-star' size={16} color="#70818A" />
+                                <Text>{item.rating}</Text>
+                            </View>
                         </View>
-                        <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 25, color: 'white' }}>></Text>
-                        </View>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.buy}>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 25, color: 'white' }}>${item.price * 2}</Text>
+                                <Text style={{ color: 'white' }}>{item.price}x{hours[item.id]} hrs</Text>
+                            </View>
+                            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 25, color: 'white' }}>></Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 
@@ -125,12 +139,13 @@ const styles = StyleSheet.create({
         flex: .5,
         justifyContent: 'center',
     },
-    parkings: {
+    parkings :{
         position: 'absolute',
-        left: 0,
         right: 0,
-        bottom: 24
-    },
+        left: 0,
+        bottom: 24,
+        paddingBottom : 24
+      },
     parking: {
         flexDirection: 'row',
         backgroundColor: 'white',
@@ -172,6 +187,9 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         backgroundColor: 'white',
         elevation: 5
+    },
+    active: {
+        borderColor: '#D83C54',
     },
 });
 
