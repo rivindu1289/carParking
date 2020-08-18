@@ -11,13 +11,15 @@ import {
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as theme from '../theme';
+import Modal from 'react-native-modal';
 
 const { Marker } = MapView;
 
 export default class Map extends React.Component {
     state = {
         hours: {},
-        active: null
+        active: null,
+        activeModal: null
     }
 
     render() {
@@ -50,6 +52,7 @@ export default class Map extends React.Component {
                     )}
                 </MapView>
                 {this.renderParkings()}
+                {this.renderModal()}
             </View>
         );
     }
@@ -92,7 +95,7 @@ export default class Map extends React.Component {
                                 <Text>{item.rating}</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.buy}>
+                        <TouchableOpacity style={styles.buy} onPress={() => this.setState({ activeModal: item })}>
                             <View style={styles.buyTotal}>
                                 <Text style={styles.buyTotalPrice}>${item.price * 2}</Text>
                                 <Text style={{ color: theme.COLORS.white }}>{item.price}x{hours[item.id]} hrs</Text>
@@ -121,6 +124,23 @@ export default class Map extends React.Component {
                 keyExtractor={(item, index) => `${item.id}`}
                 renderItem={({ item }) => this.renderParking(item)}
             />
+        )
+    }
+
+    renderModal() {
+        const { activeModal } = this.state;
+        if (!activeModal) return null;
+
+        return (
+            <Modal
+                isVisible
+                onBackButtonPress={() => this.setState({ activeModal: null })}
+                onBackdropPress={() => this.setState({ activeModal: null })}
+            >
+                <View style={styles.modal}>
+                    <Text>{activeModal.title}</Text>
+                </View>
+            </Modal>
         )
     }
 
@@ -253,6 +273,9 @@ const styles = StyleSheet.create({
     buyTotalPrice: {
         fontSize: 25,
         color: theme.COLORS.white
+    },
+    modal: {
+        backgroundColor: theme.COLORS.white
     }
 });
 
