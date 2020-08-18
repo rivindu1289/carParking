@@ -128,7 +128,7 @@ export default class Map extends React.Component {
     }
 
     renderModal() {
-        const { activeModal } = this.state;
+        const { activeModal, hours } = this.state;
         if (!activeModal) return null;
 
         return (
@@ -142,8 +142,34 @@ export default class Map extends React.Component {
 
             >
                 <View style={styles.modal}>
-                    <Text>{activeModal.title}</Text>
+                    <View>
+                        <Text>{activeModal.title}</Text>
+                    </View>
+                    <View>
+                        <Text>{activeModal.description}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text>{activeModal.price}</Text>
+                        <Text>{activeModal.rating}</Text>
+                        <Text>{activeModal.distance}</Text>
+                        <Text>{activeModal.free}/{activeModal.total}</Text>
+                    </View>
+                    <View>
+                        <Text>Choose your Booking Period</Text>
+                    </View>
+                    <View>
+                        <TouchableOpacity style={styles.buy}>
+                            <View style={styles.buyTotal}>
+                                <Text style={styles.buyTotalPrice}>${activeModal.price * 2}</Text>
+                                <Text style={{ color: theme.COLORS.white }}>{activeModal.price}x{hours[activeModal.id]} hrs</Text>
+                            </View>
+                            <View style={styles.buyButton}>
+                                <Text style={{ fontSize: 25, color: theme.COLORS.white }}>></Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
             </Modal>
         )
     }
@@ -155,7 +181,7 @@ export default class Map extends React.Component {
     }
 }
 
-const {width , height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
@@ -283,8 +309,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     modal: {
+        flexDirection: 'column',
         height: height * 0.75,
+        padding: theme.SIZES.base * 2,
         backgroundColor: theme.COLORS.white,
+        borderTopLeftRadius: theme.SIZES.base,
+        borderTopRightRadius: theme.SIZES.base,
     },
 });
 
