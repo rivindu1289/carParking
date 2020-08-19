@@ -80,11 +80,16 @@ export default class Map extends React.Component {
             <TouchableWithoutFeedback key={`parking-${item.id}`} onPress={() => this.setState({ active: item.id })} >
                 <View style={[styles.parking, styles.shadow]}>
                     <View style={styles.hours}>
-                        <Text style={theme.SIZES.font}>x {item.spots} {item.title}</Text>
-                        <ModalDropdown defaultIndex={0}
-                            defaultValue={'01:00'}
-                            options={['01:00', '02:00', '03:00', '04:00', '05:00']}
-                            style={styles.hoursDropdown} />
+                        <Text style={styles.hoursTitle}>x {item.spots} {item.title}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <ModalDropdown
+                                defaultIndex={0}
+                                defaultValue={'01:00'}
+                                options={['01:00', '02:00', '03:00', '04:00', '05:00']}
+                                style={styles.hoursDropdown}
+                            />
+                            <Text style={{ color: theme.COLORS.gray }}>hrs</Text>
+                        </View>
                     </View>
                     <View style={styles.parkingInfoContainer}>
                         <View style={styles.parkingInfo}>
