@@ -6,7 +6,7 @@ import {
     Dimensions,
     TouchableOpacity,
     FlatList,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
@@ -104,11 +104,16 @@ export default class Map extends React.Component {
                         </View>
                         <TouchableOpacity style={styles.buy} onPress={() => this.setState({ activeModal: item })}>
                             <View style={styles.buyTotal}>
-                                <Text style={styles.buyTotalPrice}>${item.price * 2}</Text>
-                                <Text style={{ color: theme.COLORS.white }}>{item.price}x{hours[item.id]} hrs</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <FontAwesome name='dollar' size={theme.SIZES.icon * 1.25} color={theme.COLORS.white} />
+                                    <Text style={styles.buyTotalPrice}>{item.price}</Text>
+                                </View>
+                                <Text style={{ color: theme.COLORS.white }}>
+                                    {item.price}x{hours[item.id]} hrs
+                                </Text>
                             </View>
                             <View style={styles.buyButton}>
-                                <Text style={{ fontSize: 25, color: theme.COLORS.white }}>></Text>
+                                <FontAwesome name='angle-right' size={theme.SIZES.icon * 1.75} color={theme.COLORS.white} />
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -250,16 +255,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: theme.COLORS.white,
         borderRadius: 6,
-        padding: 15,
+        padding: theme.SIZES.base,
         marginHorizontal: theme.SIZES.base * 2,
-        width: width - (theme.SIZES.base * 4)
+        width: width - (24 * 2),
     },
     buy: {
-        flex: 1.25,
+        flex: 1,
         flexDirection: 'row',
-        padding: 8,
+        paddingHorizontal: theme.SIZES.base,
+        paddingVertical: theme.SIZES.base,
+        backgroundColor: theme.COLORS.red,
         borderRadius: 6,
-        backgroundColor: theme.COLORS.red
     },
     marker: {
         flexDirection: 'row',
@@ -305,7 +311,8 @@ const styles = StyleSheet.create({
         borderRadius: theme.SIZES.base / 2,
         borderColor: theme.COLORS.overlay,
         borderWidth: 1,
-        padding: theme.SIZES.base,
+        paddingHorizontal: theme.SIZES.base,
+        paddingVertical: theme.SIZES.base / 1.5,
         marginRight: theme.SIZES.base / 2,
     },
     parkingInfoContainer: {
@@ -313,15 +320,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     parkingInfo: {
-        flex: 0.5,
-        justifyContent: 'center',
-        marginHorizontal: theme.SIZES.base * 2
+        justifyContent: 'space-evenly',
+        marginHorizontal: theme.SIZES.base * 1.5
     },
     parkingIcon: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
     },
     buyTotal: {
         flex: 1,
@@ -330,10 +334,13 @@ const styles = StyleSheet.create({
     buyButton: {
         flex: 0.5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'flex-end'
     },
     buyTotalPrice: {
-        fontSize: 25,
+        color: theme.COLORS.white,
+        fontSize: theme.SIZES.base * 2,
+        fontWeight: '600',
+        paddingLeft: theme.SIZES.base / 4, fontSize: 25,
         color: theme.COLORS.white
     },
     modalContainer: {
