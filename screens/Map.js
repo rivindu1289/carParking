@@ -87,6 +87,7 @@ export default class Map extends React.Component {
                                 defaultValue={'01:00'}
                                 options={['01:00', '02:00', '03:00', '04:00', '05:00']}
                                 style={styles.hoursDropdown}
+                                dropdownStyle={styles.hoursDropdownStyle}
                             />
                             <Text style={{ color: theme.COLORS.gray }}>hrs</Text>
                         </View>
@@ -385,6 +386,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: theme.SIZES.base,
+    },
+    hoursDropdownStyle: {
+        marginLeft: -theme.SIZES.base,
+        paddingHorizontal: theme.SIZES.base / 2,
+        marginVertical: -(theme.SIZES.base + 1),
     },
 });
 
