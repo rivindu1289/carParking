@@ -12,6 +12,7 @@ import MapView from 'react-native-maps';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as theme from '../theme';
 import Modal from 'react-native-modal';
+import ModalDropdown from 'react-native-modal-dropdown-with-flatlist';
 
 const { Marker } = MapView;
 
@@ -80,9 +81,9 @@ export default class Map extends React.Component {
                 <View style={[styles.parking, styles.shadow]}>
                     <View style={styles.hours}>
                         <Text style={theme.SIZES.font}>x {item.spots} {item.title}</Text>
-                        <View style={{ width: 100, borderRadius: 6, borderColor: theme.COLORS.gray, borderWidth: 0.7, padding: 4 }}>
-                            <Text style={styles.hoursTitle}>05:00 hrs</Text>
-                        </View>
+                        <ModalDropdown defaultIndex={0}
+                            defaultValue={'01:00'}
+                            options={['01:00', '02:00', '03:00', '04:00', '05:00']} />
                     </View>
                     <View style={styles.parkingInfoContainer}>
                         <View style={styles.parkingInfo}>
@@ -190,7 +191,7 @@ export default class Map extends React.Component {
         )
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const hours = {};
         parkingsSpots.map(parking => { hours[parking.id] = 1 });
         this.setState({ hours });
