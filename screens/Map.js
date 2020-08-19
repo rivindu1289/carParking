@@ -83,7 +83,8 @@ export default class Map extends React.Component {
                         <Text style={theme.SIZES.font}>x {item.spots} {item.title}</Text>
                         <ModalDropdown defaultIndex={0}
                             defaultValue={'01:00'}
-                            options={['01:00', '02:00', '03:00', '04:00', '05:00']} />
+                            options={['01:00', '02:00', '03:00', '04:00', '05:00']}
+                            style={styles.hoursDropdown} />
                     </View>
                     <View style={styles.parkingInfoContainer}>
                         <View style={styles.parkingInfo}>
@@ -287,11 +288,20 @@ const styles = StyleSheet.create({
     },
     hours: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginLeft: theme.SIZES.base / 2,
+        justifyContent: 'space-evenly',
     },
     hoursTitle: {
         fontSize: theme.SIZES.text,
         fontWeight: '500',
+    },
+    hoursDropdown: {
+        borderRadius: theme.SIZES.base / 2,
+        borderColor: theme.COLORS.overlay,
+        borderWidth: 1,
+        padding: theme.SIZES.base,
+        marginRight: theme.SIZES.base / 2,
     },
     parkingInfoContainer: {
         flex: 1.5,
