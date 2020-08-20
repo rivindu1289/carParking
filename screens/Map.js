@@ -82,13 +82,7 @@ export default class Map extends React.Component {
                     <View style={styles.hours}>
                         <Text style={styles.hoursTitle}>x {item.spots} {item.title}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <ModalDropdown
-                                defaultIndex={0}
-                                defaultValue={'01:00'}
-                                options={['01:00', '02:00', '03:00', '04:00', '05:00']}
-                                style={styles.hoursDropdown}
-                                dropdownStyle={styles.hoursDropdownStyle}
-                            />
+                            {this.renderHours()}
                             <Text style={{ color: theme.COLORS.gray }}>hrs</Text>
                         </View>
                     </View>
@@ -186,7 +180,8 @@ export default class Map extends React.Component {
                     <View style={styles.modalHours}>
                         <Text style={{ textAlign: 'center', fontWeight: '500' }}>Choose your Booking Period:</Text>
                         <View style={styles.modalHoursDropdown}>
-                            <Text style={{ color: theme.COLORS.gray }}>5:00 hrs</Text>
+                            {this.renderHours()}
+                            <Text style={{ color: theme.COLORS.gray }}>hrs</Text>
                         </View>
                     </View>
                     <View>
@@ -202,6 +197,18 @@ export default class Map extends React.Component {
             </Modal >
         )
     }
+
+    renderHours(){
+        return(
+         <ModalDropdown 
+           defaultIndex={0}
+           defaultValue={'01:00'}
+           options={['01:00', '02:00', '03:00', '04:00', '05:00']}
+           style={styles.hoursDropdown}
+           dropdownStyle={styles.hoursDropdownStyle}
+         />  
+        )
+      }
 
     UNSAFE_componentWillMount() {
         const hours = {};
